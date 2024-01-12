@@ -3,7 +3,7 @@ from api.utils.model_abstracts import Model
 from django_extensions.db.models import (
 	TimeStampedModel, 
 	ActivatorModel,
-	TitleDescriptionModel
+	TitleDescriptionModel,
 )
 from rest_framework import serializers
 

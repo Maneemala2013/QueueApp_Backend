@@ -12,8 +12,8 @@ class AppointmentSerializer(serializers.ModelSerializer):
 		fields = (
 			'service_name',
 			'service_detail',
-			'user_id',
-			'shop_id',
+			'user',
+			'shop',
 			'start_time',
 			'end_time'
 		)
