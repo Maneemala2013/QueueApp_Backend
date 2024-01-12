@@ -7,6 +7,15 @@ from django_extensions.db.models import (
 )
 from rest_framework import serializers
 
+class service(
+	TimeStampedModel, 
+	ActivatorModel,
+	TitleDescriptionModel,
+	Model
+	):
+	duration = models.DurationField()
+
+
 class shop(
 	TimeStampedModel, 
 	ActivatorModel,
@@ -34,7 +43,17 @@ class shop(
 		end_time:
 			DateTime to descript the ending time of the service
 	"""
+	CATEGORIES_CHOICES = [
+		("sl", "Salon"),
+        ("sp", "Spa"),
+        ("bt", "Beauty"),
+        ("cn", "Clinic"),
+        ("Alt", "Alternative Therapy"),
+		("N", "None")
+	]
+	category = models.CharField(max_length=20, choices=CATEGORIES_CHOICES, default="N")
 	appointment_list = serializers.ListField(child=serializers.CharField(max_length=100), allow_null=True)
+	# service_list = serializers.ListField(child=models.ForeignKey(service, on_delete=models.CASCADE), allow_null=True)
 
 
 
@@ -95,9 +114,8 @@ class Appointment(
 		end_time:
 			DateTime to descript the ending time of the service
 	"""
-	# user_id = models.CharField(max_length=255, default = "None")
-	# shop_id = models.CharField(max_length=255, default = "None")
 	user = models.ForeignKey(user, on_delete=models.CASCADE)
 	shop = models.ForeignKey(shop, on_delete=models.CASCADE)
 	start_time = models.DateTimeField() 
 	end_time = models.DateTimeField() 
+	duration = models.DurationField()
