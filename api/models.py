@@ -14,9 +14,10 @@ class service(
 	Model
 	):
 	duration = models.DurationField()
+	price = models.IntegerField()
 
 
-class shop(
+class Shop(
 	TimeStampedModel, 
 	ActivatorModel,
 	TitleDescriptionModel,
@@ -52,12 +53,16 @@ class shop(
 		("N", "None")
 	]
 	category = models.CharField(max_length=20, choices=CATEGORIES_CHOICES, default="N")
-	appointment_list = serializers.ListField(child=serializers.CharField(max_length=100), allow_null=True)
+	phone_number = models.CharField(max_length=20)
+	working_hour = models.CharField(max_length=100) # should it be the list of time?
+	playment = models.CharField(max_length=100)
+	ig_display = models.CharField(max_length=100)
+	ig_url = models.URLField()
+	location = models.CharField(max_length=100)
+	# appointment_list = serializers.ListField(models.CharField(max_length=100), allow_null=True)
 	# service_list = serializers.ListField(child=models.ForeignKey(service, on_delete=models.CASCADE), allow_null=True)
 
-
-
-class user(
+class User(
 	TimeStampedModel, 
 	ActivatorModel,
 	TitleDescriptionModel,
@@ -84,7 +89,8 @@ class user(
 		end_time:
 			DateTime to descript the ending time of the service
 	"""
-	appointment_list = serializers.ListField(child=serializers.CharField(max_length=100), allow_null=True)
+	phone_number = models.CharField(max_length=20)
+	# appointment_list = serializers.ListField(child=serializers.CharField(max_length=100), allow_null=True)
 
 
 class Appointment(
@@ -103,8 +109,6 @@ class Appointment(
 			ModificationDateTimeField of modified Time
 		title: 
 			char with max_length=255 to descript the service name
-		description: 
-			char with max_length=255 to descript detail of the service, ie the service provider name
 		user_id: 
 			char with max_length=255 to descript the user id
 		shop_id: 
@@ -114,8 +118,9 @@ class Appointment(
 		end_time:
 			DateTime to descript the ending time of the service
 	"""
-	user = models.ForeignKey(user, on_delete=models.CASCADE)
-	shop = models.ForeignKey(shop, on_delete=models.CASCADE)
+	user = models.ForeignKey(User, on_delete=models.CASCADE)
+	shop = models.ForeignKey(Shop, on_delete=models.CASCADE)
+	service_provider = models.CharField(max_length=100)
 	start_time = models.DateTimeField() 
 	end_time = models.DateTimeField() 
-	duration = models.DurationField()
+	remark = models.CharField(max_length=255)
