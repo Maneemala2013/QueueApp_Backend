@@ -7,16 +7,6 @@ from django_extensions.db.models import (
 )
 from rest_framework import serializers
 
-class service(
-	TimeStampedModel, 
-	ActivatorModel,
-	TitleDescriptionModel,
-	Model
-	):
-	duration = models.DurationField()
-	price = models.IntegerField()
-
-
 class Shop(
 	TimeStampedModel, 
 	ActivatorModel,
@@ -34,7 +24,7 @@ class Shop(
 		title: 
 			char with max_length=255 to descript the service name
 		description: 
-			char with max_length=255 to descript detail of the service, ie the service provider name
+			char with max_length=255 to descript detail of the service, ie the service provider name -> text
 		user_id: 
 			char with max_length=255 to descript the user id
 		shop_id: 
@@ -46,21 +36,42 @@ class Shop(
 	"""
 	CATEGORIES_CHOICES = [
 		("sl", "Salon"),
-        ("sp", "Spa"),
+        ("sp", "Spa & massage"),
         ("bt", "Beauty"),
         ("cn", "Clinic"),
         ("Alt", "Alternative Therapy"),
 		("N", "None")
 	]
+	price_range_CHOICES = [
+		("N", "N/A"),
+		("1", "$"),
+        ("2", "$$"),
+        ("3", "$$$"),
+        ("4", "$$$$"),
+	]
 	category = models.CharField(max_length=20, choices=CATEGORIES_CHOICES, default="N")
 	phone_number = models.CharField(max_length=20)
 	working_hour = models.CharField(max_length=100) # should it be the list of time?
-	playment = models.CharField(max_length=100)
+	payment = models.CharField(max_length=100)
 	ig_display = models.CharField(max_length=100)
-	ig_url = models.URLField()
 	location = models.CharField(max_length=100)
-	# appointment_list = serializers.ListField(models.CharField(max_length=100), allow_null=True)
-	# service_list = serializers.ListField(child=models.ForeignKey(service, on_delete=models.CASCADE), allow_null=True)
+	farness = models.CharField(max_length=100)
+	price_range = models.CharField(max_length=20, choices=price_range_CHOICES, default="N")
+	rating = models.FloatField()
+	review_num = models.PositiveIntegerField()
+	fb = models.CharField(max_length=100)
+	profile_image_url = models.URLField()
+
+class service(
+	TimeStampedModel, 
+	ActivatorModel,
+	TitleDescriptionModel,
+	Model
+	):
+	duration = models.DurationField()
+	price = models.PositiveIntegerField()
+	discountedPrice = models.PositiveIntegerField()
+	shop = models.ForeignKey(Shop, on_delete=models.CASCADE)
 
 class User(
 	TimeStampedModel, 

@@ -18,11 +18,10 @@ class AppointmentSerializer(serializers.ModelSerializer):
 			'end_time'
 		)
 
-class ShopSerializer(serializers.ModelSerializer):
+class ShopSerializer(serializers.HyperlinkedModelSerializer):
 
 	shop_name = CharField(source="title", required=True)
 	shop_detail = CharField(source="description", required=True)
-	# appointment_list = serializers.ListField()
 	
 	class Meta:
 		model = models.Shop
@@ -32,10 +31,17 @@ class ShopSerializer(serializers.ModelSerializer):
 			'category',
 			'phone_number',
 			'working_hour',
-			'playment',
+			'payment',
 			'ig_display',
-			'ig_url',
-			'location'
+			'location',
+			'farness',
+			'price_range',
+			'rating',
+			'review_num',
+			'fb',
+			'profile_image_url',
+			'appointment_set',
+			'service_set'
 		)
 
 class ServiceSerializer(serializers.ModelSerializer):
@@ -50,6 +56,8 @@ class ServiceSerializer(serializers.ModelSerializer):
 			'service_detail',
 			'duration',
 			'price',
+			'discountedPrice',
+			'shop'
 		)
 
 class UserSerializer(serializers.ModelSerializer):
