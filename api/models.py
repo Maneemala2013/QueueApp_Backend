@@ -49,18 +49,20 @@ class Shop(
         ("3", "$$$"),
         ("4", "$$$$"),
 	]
+	shop_detail = models.TextField()
 	category = models.CharField(max_length=20, choices=CATEGORIES_CHOICES, default="N")
 	phone_number = models.CharField(max_length=20)
 	working_hour = models.CharField(max_length=100) # should it be the list of time?
 	payment = models.CharField(max_length=100)
 	ig_display = models.CharField(max_length=100)
-	location = models.CharField(max_length=100)
+	location = models.CharField(max_length=255)
 	farness = models.CharField(max_length=100)
 	price_range = models.CharField(max_length=20, choices=price_range_CHOICES, default="N")
 	rating = models.FloatField()
 	review_num = models.PositiveIntegerField()
 	fb = models.CharField(max_length=100)
 	profile_image_url = models.URLField()
+	available_time_slot = models.TextField()
 
 class service(
 	TimeStampedModel, 
@@ -91,17 +93,10 @@ class User(
 			char with max_length=255 to descript the service name
 		description: 
 			char with max_length=255 to descript detail of the service, ie the service provider name
-		user_id: 
-			char with max_length=255 to descript the user id
-		shop_id: 
-			char with max_length=255 to descript the shop id
-		start_time: 
-			DateTime to descript the starting time of the service
-		end_time:
-			DateTime to descript the ending time of the service
+		phone_number:
+			CharField represented phone number
 	"""
 	phone_number = models.CharField(max_length=20)
-	# appointment_list = serializers.ListField(child=serializers.CharField(max_length=100), allow_null=True)
 
 
 class Appointment(
@@ -120,18 +115,21 @@ class Appointment(
 			ModificationDateTimeField of modified Time
 		title: 
 			char with max_length=255 to descript the service name
-		user_id: 
+		user: 
 			char with max_length=255 to descript the user id
-		shop_id: 
+		shop: 
 			char with max_length=255 to descript the shop id
 		start_time: 
 			DateTime to descript the starting time of the service
 		end_time:
 			DateTime to descript the ending time of the service
+		remark:
+
+
 	"""
 	user = models.ForeignKey(User, on_delete=models.CASCADE)
 	shop = models.ForeignKey(Shop, on_delete=models.CASCADE)
 	service_provider = models.CharField(max_length=100)
 	start_time = models.DateTimeField() 
 	end_time = models.DateTimeField() 
-	remark = models.CharField(max_length=255)
+	remark = models.TextField()

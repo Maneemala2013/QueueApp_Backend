@@ -21,7 +21,6 @@ class AppointmentSerializer(serializers.ModelSerializer):
 class ShopSerializer(serializers.HyperlinkedModelSerializer):
 
 	shop_name = CharField(source="title", required=True)
-	shop_detail = CharField(source="description", required=True)
 	
 	class Meta:
 		model = models.Shop
@@ -41,7 +40,8 @@ class ShopSerializer(serializers.HyperlinkedModelSerializer):
 			'fb',
 			'profile_image_url',
 			'appointment_set',
-			'service_set'
+			'service_set',
+			'available_time_slot'
 		)
 
 class ServiceSerializer(serializers.ModelSerializer):
