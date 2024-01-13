@@ -49,7 +49,7 @@ class Shop(
         ("3", "$$$"),
         ("4", "$$$$"),
 	]
-	shop_detail = models.TextField()
+	shop_detail = models.TextField(blank=True, default="")
 	category = models.CharField(max_length=20, choices=CATEGORIES_CHOICES, default="N")
 	phone_number = models.CharField(max_length=20)
 	working_hour = models.CharField(max_length=100) # should it be the list of time?
@@ -61,8 +61,8 @@ class Shop(
 	rating = models.FloatField()
 	review_num = models.PositiveIntegerField()
 	fb = models.CharField(max_length=100)
-	profile_image_url = models.URLField()
-	available_time_slot = models.TextField()
+	profile_image_url = models.TextField(default="")
+	available_time_slot = models.TextField(default="0,0,0,0,0,0,0,0,0,0,0,0,0,0,0")
 
 class service(
 	TimeStampedModel, 
@@ -72,7 +72,7 @@ class service(
 	):
 	duration = models.DurationField()
 	price = models.PositiveIntegerField()
-	discountedPrice = models.PositiveIntegerField()
+	discountedPrice = models.IntegerField(blank=True, default=-1)
 	shop = models.ForeignKey(Shop, on_delete=models.CASCADE)
 
 class User(

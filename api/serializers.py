@@ -47,7 +47,7 @@ class ShopSerializer(serializers.HyperlinkedModelSerializer):
 class ServiceSerializer(serializers.ModelSerializer):
 
 	service_name = CharField(source="title", required=True)
-	service_detail = CharField(source="description", required=True)
+	service_detail = CharField(source="description", required=False)
 	
 	class Meta:
 		model = models.service
