@@ -59,7 +59,7 @@ class UserSerializer(serializers.ModelSerializer):
         
 class AppointmentSerializer(serializers.ModelSerializer):
     service_name = CharField(source="title", required=True)
-    service_detail = CharField(source="description", required=True)
+    service_detail = CharField(source="description", required=False)
 
     class Meta:
         model = models.Appointment
@@ -68,6 +68,8 @@ class AppointmentSerializer(serializers.ModelSerializer):
             "service_detail",
             "user",
             "shop",
+            "date",
             "start_time",
             "end_time",
+            "remark"
         )
