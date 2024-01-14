@@ -35,19 +35,19 @@ class Shop(
 			DateTime to descript the ending time of the service
 	"""
 	CATEGORIES_CHOICES = [
-		("sl", "Salon"),
-        ("sp", "Spa & massage"),
-        ("bt", "Beauty"),
-        ("cn", "Clinic"),
-        ("Alt", "Alternative Therapy"),
-		("N", "None")
+		("Salon", "Salon"),
+        ("Spa & massage", "Spa & massage"),
+        ("Beauty", "Beauty"),
+        ("Clinic", "Clinic"),
+        ("Alternative Therapy", "Alternative Therapy"),
+		("None", "None")
 	]
 	price_range_CHOICES = [
 		("N", "N/A"),
-		("1", "$"),
-        ("2", "$$"),
-        ("3", "$$$"),
-        ("4", "$$$$"),
+		("$", "$"),
+        ("$$", "$$"),
+        ("$$$", "$$$"),
+        ("$$$$", "$$$$"),
 	]
 	shop_detail = models.TextField(blank=True, default="")
 	category = models.CharField(max_length=20, choices=CATEGORIES_CHOICES, default="N")
