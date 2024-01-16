@@ -1,0 +1,6 @@
+django
+django_extensions
+django-filter
+djangorestframework
+django-cors-headers
+djangorestframework-jsonapi
